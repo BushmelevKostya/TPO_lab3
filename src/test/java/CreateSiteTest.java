@@ -22,7 +22,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-public class ChangeLanguageTest {
+public class CreateSiteTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -37,10 +37,13 @@ public class ChangeLanguageTest {
     driver.quit();
   }
   @Test
-  public void changeLanguage() {
+  public void createSite() {
     driver.get("https://www.ucoz.ru/");
-    driver.manage().window().setSize(new Dimension(805, 816));
-    driver.findElement(By.id("llink")).click();
-    driver.findElement(By.linkText("English")).click();
+    driver.manage().window().setSize(new Dimension(1550, 830));
+    driver.findElement(By.linkText("Войти")).click();
+    driver.findElement(By.id("site_address")).click();
+    driver.findElement(By.id("site_address")).sendKeys("testSite");
+    driver.findElement(By.id("submit_btn")).click();
+    driver.switchTo().frame(2);
   }
 }
