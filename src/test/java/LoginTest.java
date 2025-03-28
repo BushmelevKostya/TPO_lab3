@@ -19,8 +19,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
-
-import java.time.Duration;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -38,33 +36,15 @@ public class LoginTest {
   public void tearDown() {
     driver.quit();
   }
-  public String waitForWindow(int timeout) {
-    try {
-      Thread.sleep(timeout);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    Set<String> whNow = driver.getWindowHandles();
-    Set<String> whThen = (Set<String>) vars.get("window_handles");
-    if (whNow.size() > whThen.size()) {
-      whNow.removeAll(whThen);
-    }
-    return whNow.iterator().next();
-  }
   @Test
-  public void login() {
+  public void loginTest() {
     driver.get("https://www.ucoz.ru/");
     driver.manage().window().setSize(new Dimension(1550, 830));
     driver.findElement(By.linkText("Войти")).click();
-    {
-      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(4));
-      wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".google")));
-    }
-    vars.put("window_handles", driver.getWindowHandles());
-    driver.findElement(By.cssSelector(".google")).click();
-    vars.put("win9044", waitForWindow(5000));
-    vars.put("root", driver.getWindowHandle());
-    driver.switchTo().window(vars.get("win9044").toString());
-    driver.switchTo().window(vars.get("root").toString());
+    driver.findElement(By.id("fEmail")).click();
+    driver.findElement(By.id("fEmail")).sendKeys("kostikbushmelev@yandex.ru");
+    driver.findElement(By.id("fPassword")).click();
+    driver.findElement(By.id("fPassword")).sendKeys("strongpassword");
+    driver.findElement(By.id("submit_btn")).click();
   }
 }

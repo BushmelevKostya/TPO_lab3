@@ -54,9 +54,14 @@ public class CreatePaymentTest {
     driver.get("https://www.ucoz.ru/");
     driver.manage().window().setSize(new Dimension(1550, 830));
     driver.findElement(By.linkText("Войти")).click();
+    driver.findElement(By.id("fEmail")).click();
+    driver.findElement(By.id("fEmail")).sendKeys("kostikbushmelev@yandex.ru");
+    driver.findElement(By.id("fPassword")).click();
+    driver.findElement(By.id("fPassword")).sendKeys("strongpassword");
+    driver.findElement(By.id("submit_btn")).click();
     vars.put("window_handles", driver.getWindowHandles());
     driver.findElement(By.cssSelector(".nowrap > span")).click();
-    vars.put("win8348", waitForWindow(2000));
+    vars.put("win8348", waitForWindow(10000));
     driver.switchTo().window(vars.get("win8348").toString());
     driver.findElement(By.cssSelector(".popup-close-btn")).click();
     driver.findElement(By.linkText("Улучшить тариф")).click();

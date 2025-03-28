@@ -19,6 +19,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
+
+import java.time.Duration;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -54,47 +56,53 @@ public class ChangeDesignTest {
     driver.get("https://www.ucoz.ru/");
     driver.manage().window().setSize(new Dimension(1550, 830));
     driver.findElement(By.linkText("Войти")).click();
+    driver.findElement(By.id("fEmail")).click();
+    driver.findElement(By.id("fEmail")).sendKeys("kostikbushmelev@yandex.ru");
+    driver.findElement(By.id("fPassword")).click();
+    driver.findElement(By.id("fPassword")).sendKeys("strongpassword");
+    driver.findElement(By.id("submit_btn")).click();
     vars.put("window_handles", driver.getWindowHandles());
-    driver.findElement(By.linkText("tpolab3.ucoz.net")).click();
-    vars.put("win3869", waitForWindow(2000));
+    driver.findElement(By.linkText("tpolab.ucoz.net")).click();
+    vars.put("win3869", waitForWindow(10000));
     driver.switchTo().window(vars.get("win3869").toString());
     driver.findElement(By.cssSelector(".popup-close-btn")).click();
     driver.findElement(By.linkText("Редактор страниц")).click();
     driver.findElement(By.cssSelector("li:nth-child(1) .item-link-title")).click();
     vars.put("window_handles", driver.getWindowHandles());
     driver.findElement(By.cssSelector("#entrP1 div > div > a:nth-child(1)")).click();
-    vars.put("win390", waitForWindow(2000));
+    vars.put("win390", waitForWindow(10000));
     driver.switchTo().window(vars.get("win390").toString());
-    driver.findElement(By.linkText("отредактировать эту новость")).click();
-    driver.switchTo().frame(0);
-    driver.findElement(By.cssSelector("p:nth-child(3) > span > span")).click();
-    driver.findElement(By.cssSelector("p:nth-child(3) > span > span")).click();
-    {
-      WebElement element = driver.findElement(By.cssSelector("p:nth-child(3) > span > span"));
-      Actions builder = new Actions(driver);
-      builder.doubleClick(element).perform();
-    }
-    driver.switchTo().defaultContent();
-    driver.findElement(By.id("cke_11_text")).click();
-    driver.switchTo().frame(0);
-    {
-      WebElement element = driver.findElement(By.cssSelector(".cke_editable"));
-      js.executeScript("if(arguments[0].contentEditable === 'true') {arguments[0].innerText = '<p><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">Вы можете управлять категориями новостей в панели управления <a data-cke-saved-href=\"/panel/?a=cats&amp;m=nw\" href=\"/panel/?a=cats&amp;m=nw\">по ссылке</a>, <a data-cke-saved-href=\"/news/0-0-0-1-10-1\" href=\"/news/0-0-0-1-10-1\">отредактировать эту новость</a> или <a data-cke-saved-href=\"/news/0-0-0-0-1\" href=\"/news/0-0-0-0-1\">добавить свою новость</a>. Инструкции по модулю \"Новости сайта\" есть <a data-cke-saved-href=\"https://www.ucoz.ru/help/module-news\" href=\"https://www.ucoz.ru/help/module-news\" target=\"_blank\">в нашей базе знаний</a>.</span></span></p><hr><p><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">В мире технологий наступил новый рубеж с разработкой нового поколения литий-ионных батарей. Эти батареи обещают вдвое большую емкость по сравнению с существующими аналогами, а также увеличенный срок службы и уменьшенное время зарядки. Это открытие может радикально изменить рынок электромобилей, делая их более доступными и экологичными. Разработка уже привлекла внимание крупнейших производителей автомобилей и технологических компаний по всему миру.</span></span><br type=\"_moz\"></p>'}", element);
-    }
-    driver.switchTo().defaultContent();
-    driver.switchTo().frame(1);
-    driver.findElement(By.cssSelector("#cke_86_option > span")).click();
-    driver.switchTo().defaultContent();
-    driver.switchTo().frame(0);
-    {
-      WebElement element = driver.findElement(By.cssSelector(".cke_editable"));
-      js.executeScript("if(arguments[0].contentEditable === 'true') {arguments[0].innerText = '<p><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">Вы можете управлять категориями новостей в панели управления <a data-cke-saved-href=\"/panel/?a=cats&amp;m=nw\" href=\"/panel/?a=cats&amp;m=nw\">по ссылке</a>, <a data-cke-saved-href=\"/news/0-0-0-1-10-1\" href=\"/news/0-0-0-1-10-1\">отредактировать эту новость</a> или <a data-cke-saved-href=\"/news/0-0-0-0-1\" href=\"/news/0-0-0-0-1\">добавить свою новость</a>. Инструкции по модулю \"Новости сайта\" есть <a data-cke-saved-href=\"https://www.ucoz.ru/help/module-news\" href=\"https://www.ucoz.ru/help/module-news\" target=\"_blank\">в нашей базе знаний</a>.</span></span></p><hr><p><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">В мире технологий наступил новый рубеж с разработкой нового поколения литий-ионных батарей. Эти батареи обещают </span></span><span style=\"font-family:Comic Sans MS,cursive;\"><span style=\"font-size:20px;\">вдвое </span></span><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">большую емкость по сравнению с существующими аналогами, а также увеличенный срок службы и уменьшенное время зарядки. Это открытие может радикально изменить рынок электромобилей, делая их более доступными и экологичными. Разработка уже привлекла внимание крупнейших производителей автомобилей и технологических компаний по всему миру.</span></span><br type=\"_moz\"></p>'}", element);
-    }
-    driver.switchTo().defaultContent();
-    driver.findElement(By.id("nwF7")).click();
-    vars.put("window_handles", driver.getWindowHandles());
-    driver.findElement(By.linkText("Перейти на страницу материала")).click();
-    vars.put("win521", waitForWindow(2000));
-    driver.switchTo().window(vars.get("win521").toString());
+//    driver.findElement(By.linkText("отредактировать эту новость")).click();
+//    new WebDriverWait(driver, Duration.ofSeconds(10))
+//            .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
+//    driver.findElement(By.cssSelector("p:nth-child(3) > span > span")).click();
+//    driver.findElement(By.cssSelector("p:nth-child(3) > span > span")).click();
+//    {
+//      WebElement element = driver.findElement(By.cssSelector("p:nth-child(3) > span > span"));
+//      Actions builder = new Actions(driver);
+//      builder.doubleClick(element).perform();
+//    }
+//    driver.switchTo().defaultContent();
+//    driver.findElement(By.id("cke_11_text")).click();
+//    driver.switchTo().frame(0);
+//    {
+//      WebElement element = driver.findElement(By.cssSelector(".cke_editable"));
+//      js.executeScript("if(arguments[0].contentEditable === 'true') {arguments[0].innerText = '<p><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">Вы можете управлять категориями новостей в панели управления <a data-cke-saved-href=\"/panel/?a=cats&amp;m=nw\" href=\"/panel/?a=cats&amp;m=nw\">по ссылке</a>, <a data-cke-saved-href=\"/news/0-0-0-1-10-1\" href=\"/news/0-0-0-1-10-1\">отредактировать эту новость</a> или <a data-cke-saved-href=\"/news/0-0-0-0-1\" href=\"/news/0-0-0-0-1\">добавить свою новость</a>. Инструкции по модулю \"Новости сайта\" есть <a data-cke-saved-href=\"https://www.ucoz.ru/help/module-news\" href=\"https://www.ucoz.ru/help/module-news\" target=\"_blank\">в нашей базе знаний</a>.</span></span></p><hr><p><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">В мире технологий наступил новый рубеж с разработкой нового поколения литий-ионных батарей. Эти батареи обещают вдвое большую емкость по сравнению с существующими аналогами, а также увеличенный срок службы и уменьшенное время зарядки. Это открытие может радикально изменить рынок электромобилей, делая их более доступными и экологичными. Разработка уже привлекла внимание крупнейших производителей автомобилей и технологических компаний по всему миру.</span></span><br type=\"_moz\"></p>'}", element);
+//    }
+//    driver.switchTo().defaultContent();
+//    driver.switchTo().frame(1);
+//    driver.findElement(By.cssSelector("#cke_86_option > span")).click();
+//    driver.switchTo().defaultContent();
+//    driver.switchTo().frame(0);
+//    {
+//      WebElement element = driver.findElement(By.cssSelector(".cke_editable"));
+//      js.executeScript("if(arguments[0].contentEditable === 'true') {arguments[0].innerText = '<p><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">Вы можете управлять категориями новостей в панели управления <a data-cke-saved-href=\"/panel/?a=cats&amp;m=nw\" href=\"/panel/?a=cats&amp;m=nw\">по ссылке</a>, <a data-cke-saved-href=\"/news/0-0-0-1-10-1\" href=\"/news/0-0-0-1-10-1\">отредактировать эту новость</a> или <a data-cke-saved-href=\"/news/0-0-0-0-1\" href=\"/news/0-0-0-0-1\">добавить свою новость</a>. Инструкции по модулю \"Новости сайта\" есть <a data-cke-saved-href=\"https://www.ucoz.ru/help/module-news\" href=\"https://www.ucoz.ru/help/module-news\" target=\"_blank\">в нашей базе знаний</a>.</span></span></p><hr><p><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">В мире технологий наступил новый рубеж с разработкой нового поколения литий-ионных батарей. Эти батареи обещают </span></span><span style=\"font-family:Comic Sans MS,cursive;\"><span style=\"font-size:20px;\">вдвое </span></span><span style=\"font-family:Courier New,Courier,monospace;\"><span style=\"font-size:20px;\">большую емкость по сравнению с существующими аналогами, а также увеличенный срок службы и уменьшенное время зарядки. Это открытие может радикально изменить рынок электромобилей, делая их более доступными и экологичными. Разработка уже привлекла внимание крупнейших производителей автомобилей и технологических компаний по всему миру.</span></span><br type=\"_moz\"></p>'}", element);
+//    }
+//    driver.switchTo().defaultContent();
+//    driver.findElement(By.id("nwF7")).click();
+//    vars.put("window_handles", driver.getWindowHandles());
+//    driver.findElement(By.linkText("Перейти на страницу материала")).click();
+//    vars.put("win521", waitForWindow(2000));
+//    driver.switchTo().window(vars.get("win521").toString());
   }
 }

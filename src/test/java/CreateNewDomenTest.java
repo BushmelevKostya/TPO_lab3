@@ -19,6 +19,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
+
+import java.time.Duration;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,11 +28,13 @@ public class CreateNewDomenTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+  WebDriverWait wait;
   @Before
   public void setUp() {
     driver = new FirefoxDriver();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
+    wait = new WebDriverWait(driver, Duration.ofSeconds(15));
   }
   @After
   public void tearDown() {
@@ -54,17 +58,19 @@ public class CreateNewDomenTest {
     driver.get("https://www.ucoz.ru/");
     driver.manage().window().setSize(new Dimension(1550, 830));
     driver.findElement(By.linkText("Войти")).click();
+    driver.findElement(By.id("fEmail")).click();
+    driver.findElement(By.id("fEmail")).sendKeys("kostikbushmelev@yandex.ru");
+    driver.findElement(By.id("fPassword")).click();
+    driver.findElement(By.id("fPassword")).sendKeys("strongpassword");
+    driver.findElement(By.id("submit_btn")).click();
     vars.put("window_handles", driver.getWindowHandles());
     driver.findElement(By.cssSelector(".nowrap > span")).click();
-    vars.put("win2180", waitForWindow(2000));
+    vars.put("win2180", waitForWindow(10000));
     driver.switchTo().window(vars.get("win2180").toString());
     driver.findElement(By.cssSelector(".popup-close-btn")).click();
     driver.findElement(By.linkText("Купить домен")).click();
-    driver.findElement(By.cssSelector(".js-zones-list > .u-ios-checkbox_wrapper:nth-child(1) .u-ios-checkbox_body")).click();
+    driver.findElement(By.cssSelector(".js-zones-list > .u-ios-checkbox_wrapper:nth-child(2) .u-ios-checkbox_body")).click();
     driver.findElement(By.cssSelector(".u-ios-checkbox_wrapper:nth-child(12) .u-ios-checkbox_body")).click();
     driver.findElement(By.cssSelector(".check-domains-button")).click();
-    driver.findElement(By.cssSelector(".domains-basket_expand > .u-form-btn")).click();
-    driver.findElement(By.cssSelector(".prior:nth-child(2)")).click();
-    driver.findElement(By.cssSelector(".u-form-btn > span")).click();
   }
 }
