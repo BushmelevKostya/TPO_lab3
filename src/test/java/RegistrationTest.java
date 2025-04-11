@@ -12,7 +12,7 @@ import java.time.Duration;
 public class RegistrationTest {
 	private WebDriver driver;
 	private RegistrationPage registrationPage;
-	private final String BASE_URL = "https://ukit.com/ru?utm_source=ucozmain&utm_medium=ulp&utm_campaign=umainlp2/#signUp";
+	private final String BASE_URL = "https://www.ucoz.ru/register?utm_source=main&utm_medium=screen1&utm_campaign=signup";
 	
 	@BeforeAll
 	public static void setupAll() {
@@ -50,6 +50,26 @@ public class RegistrationTest {
 		
 		Assertions.assertTrue(registrationPage.isSuccessMessageDisplayed(),
 				"Сообщение об успешной регистрации не отображается");
+	}
+	
+	@ParameterizedTest
+	@EnumSource(BrowserType.class)
+	public void enterExistingEmail(BrowserType browserType) {
+		driver = createDriver(browserType);
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.get(BASE_URL);
+		
+		registrationPage = new RegistrationPage(driver);
+		String email = "kostikbushmelev@gmail.com";
+		String password = "SecurePass123";
+
+		registrationPage.enterEmail(email);
+		
+		registrationPage.pressTab();
+		
+		Assertions.assertTrue(registrationPage.isErrorMessageDisplayed(),
+				"Сообщение о существовании email не отображается");
 	}
 	
 	@AfterEach
