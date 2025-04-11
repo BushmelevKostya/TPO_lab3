@@ -4,13 +4,22 @@ import org.junit.Test;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertTrue;
 
 public class LoginTest {
   private WebDriver[] drivers = new WebDriver[2];
-
+  
   @Before
   public void setUp() {
     WebDriverManager.chromedriver().setup();
@@ -18,7 +27,7 @@ public class LoginTest {
     drivers[0] = new FirefoxDriver();
     drivers[1] = new ChromeDriver();
   }
-
+  
   @Test
   public void loginTest() {
     for (WebDriver driver : drivers) {
@@ -30,6 +39,10 @@ public class LoginTest {
       driver.findElement(By.id("fPassword")).click();
       driver.findElement(By.id("fPassword")).sendKeys("strongpassword");
       driver.findElement(By.id("submit_btn")).click();
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+      WebElement el = wait.until(ExpectedConditions.elementToBeClickable((By.xpath("//h2[contains(text(), 'Мои сайты')]"))));
+      assertTrue("Логин не произошел", el.isDisplayed());
+      try{Thread.sleep(2000);}catch(InterruptedException e){e.printStackTrace();}
       driver.quit();
     }
   }
